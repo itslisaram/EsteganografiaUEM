@@ -7,6 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EsteganografiaGUI extends JFrame {
+    private JPanel mainPanel;
+    private CodificarGUI codificarPanel;
+    private DecodificarGUI decodificarPanel;
+
     private JLabel titleLabel;
     private JButton encryptButton;
     private JButton decryptButton;
@@ -23,12 +27,19 @@ public class EsteganografiaGUI extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         add(titleLabel, BorderLayout.NORTH);
 
+        mainPanel = new JPanel(new CardLayout());
+
+        codificarPanel = new CodificarGUI();
+        decodificarPanel = new DecodificarGUI();
+        mainPanel.add(codificarPanel, "CodificarPanel");
+        mainPanel.add(decodificarPanel, "DecodificarPanel");
+
         JPanel buttonPanel = new JPanel();
         GridBagConstraints gbc = new GridBagConstraints();
 
         buttonPanel.setLayout(new GridBagLayout());
 
-        encryptButton = new JButton("Encriptar imagen");
+        encryptButton = new JButton("Codificar imagen");
         encryptButton.setPreferredSize(new Dimension(150, 50));
 
         decryptButton = new JButton("Decodificar imagen");
@@ -49,13 +60,14 @@ public class EsteganografiaGUI extends JFrame {
         exitButton = new JButton("Salir");
         exitButton.setPreferredSize(new Dimension(100, 30));
         
-        
         exitPanel.add(exitButton, BorderLayout.EAST);
         exitPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
 
         add(exitPanel, BorderLayout.SOUTH);
 
-        Botones bLogic = new Botones(this);
+        Botones bLogic = new Botones(this, mainPanel);
+        encryptButton.addActionListener(bLogic::handleCodificar);
+        decryptButton.addActionListener(bLogic::handleDecodificar);
         exitButton.addActionListener(bLogic::handleExit);
 
         setLocationRelativeTo(null);
