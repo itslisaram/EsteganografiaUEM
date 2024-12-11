@@ -1,16 +1,15 @@
 package GUI;
 
-import logica.*;
+import logica.Botones;
 //import util.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class EsteganografiaGUI extends JFrame {
+    private Botones botones;
+    
     private JPanel mainPanel;
-    private CodificarGUI codificarPanel;
-    private DecodificarGUI decodificarPanel;
-
     private JLabel titleLabel;
     private JButton encryptButton;
     private JButton decryptButton;
@@ -18,7 +17,7 @@ public class EsteganografiaGUI extends JFrame {
     
     public EsteganografiaGUI() {
         setTitle("Esteganografía");
-        setSize(600, 350);
+        setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
@@ -27,51 +26,39 @@ public class EsteganografiaGUI extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         add(titleLabel, BorderLayout.NORTH);
 
-        mainPanel = new JPanel(new CardLayout());
-
-        codificarPanel = new CodificarGUI();
-        decodificarPanel = new DecodificarGUI();
-        mainPanel.add(codificarPanel, "CodificarPanel");
-        mainPanel.add(decodificarPanel, "DecodificarPanel");
-
-        JPanel buttonPanel = new JPanel();
+        mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
-        buttonPanel.setLayout(new GridBagLayout());
+        gbc.insets = new Insets(10, 50, 10, 50);
 
         encryptButton = new JButton("Codificar imagen");
-        encryptButton.setPreferredSize(new Dimension(150, 50));
+        encryptButton.setPreferredSize(new Dimension(130, 40));
 
         decryptButton = new JButton("Decodificar imagen");
-        decryptButton.setPreferredSize(new Dimension(150, 50));
+        decryptButton.setPreferredSize(new Dimension(130, 40));
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(20, 40, 20, 40);
-        buttonPanel.add(encryptButton, gbc);
+        mainPanel.add(encryptButton, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        buttonPanel.add(decryptButton, gbc);
+        mainPanel.add(decryptButton, gbc);
 
-        add(buttonPanel, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.CENTER);
 
-        JPanel exitPanel = new JPanel(new BorderLayout());
         exitButton = new JButton("Salir");
-        exitButton.setPreferredSize(new Dimension(100, 30));
-        
-        exitPanel.add(exitButton, BorderLayout.EAST);
-        exitPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+        exitButton.setPreferredSize(new Dimension(110, 30));
 
+        JPanel exitPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        exitPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+        exitPanel.add(exitButton);
         add(exitPanel, BorderLayout.SOUTH);
 
-        Botones bLogic = new Botones(this, mainPanel);
-        encryptButton.addActionListener(bLogic::handleCodificar);
-        decryptButton.addActionListener(bLogic::handleDecodificar);
-        exitButton.addActionListener(bLogic::handleExit);
+        botones = new Botones(this, mainPanel);
+        encryptButton.addActionListener(e -> botones.handleCodificar());
+        exitButton.addActionListener(e -> botones.handleExit());
 
         setLocationRelativeTo(null);
-
         setVisible(true);
     }
 }

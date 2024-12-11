@@ -1,8 +1,11 @@
 package logica;
 
+import GUI.*;
+import util.ImageUtils;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class Botones {
     private final JFrame frame;
@@ -13,17 +16,44 @@ public class Botones {
         this.mainPanel = mainPanel;
     }
 
-    public void handleExit(ActionEvent e) {
+    public void handleExit() {
         frame.dispose();
     }
 
-    public void handleCodificar(ActionEvent e) {
-        CardLayout layout = (CardLayout) mainPanel.getLayout();
-        layout.show(mainPanel, "CodificarPanel");
+    public void handleCodificar() {
+        CodificarGUI codificarPanel = new CodificarGUI(frame, mainPanel, this);
+        frame.setContentPane(codificarPanel);
+        frame.revalidate();
+        frame.repaint();
     }
 
-    public void handleDecodificar(ActionEvent e) {
-        CardLayout layout = (CardLayout) mainPanel.getLayout();
-        layout.show(mainPanel, "DecodificarPanel");
+    public void handleDeodificar() {
+        CodificarGUI codificarPanel = new CodificarGUI(frame, mainPanel, this);
+        frame.setContentPane(codificarPanel);
+        frame.revalidate();
+        frame.repaint();
+    }
+
+    public void handleBack() {
+        EsteganografiaGUI esteganografiaGUI = new EsteganografiaGUI();
+        frame.dispose();
+        frame.setContentPane(esteganografiaGUI);
+    }
+
+    public void handleSelectImage(JLabel imageLabel) {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(frame);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            ImageIcon imageIcon = ImageUtils.loadImage(selectedFile.getAbsolutePath());
+            if (imageIcon != null) {
+                imageLabel.setIcon(imageIcon);
+                imageLabel.setText("");
+            } else {
+                imageLabel.setText("Error al cargar la imagen");
+            }
+        }
     }
 }
