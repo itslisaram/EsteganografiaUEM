@@ -1,9 +1,12 @@
 package logica;
 
 import GUI.*;
+import util.FicheroTexto;
 import util.ImageUtils;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.io.File;
 
 public class Botones {
@@ -53,6 +56,21 @@ public class Botones {
             } else {
                 imageLabel.setText("Error al cargar la imagen");
             }
+        }
+    }
+
+    public void handleSelectFile() {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Archivos de texto", "txt", "log", "csv");
+        fileChooser.setFileFilter(filter);
+
+        int result = fileChooser.showOpenDialog(frame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            FicheroTexto fichero = new FicheroTexto(selectedFile);
+            fichero.leerArchivo();
         }
     }
 }
