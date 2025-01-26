@@ -37,9 +37,8 @@ public class Botones {
     }
 
     public void handleBack() {
-        EsteganografiaGUI esteganografiaGUI = new EsteganografiaGUI();
         frame.dispose();
-        frame.setContentPane(esteganografiaGUI);
+        new EsteganografiaGUI();
     }
 
     public void handleSelectImage(JLabel imageLabel) {

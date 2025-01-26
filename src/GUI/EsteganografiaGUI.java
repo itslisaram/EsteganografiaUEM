@@ -1,7 +1,6 @@
 package GUI;
 
 import logica.Botones;
-//import util.*;
 
 import javax.swing.*;
 import java.awt.*;
