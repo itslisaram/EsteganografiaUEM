@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CodificarGUI extends JPanel {
-    private JLabel titleLabel;
-    private JLabel imageLabel;
-    private JButton selectFileButton ,selectImageButton;
-    private JButton backButton;
+    private JTextArea textArea;
+    private JLabel titleLabel, imageLabel;
+    private JButton selectImageButton, selectFileButton, encryptButton, backButton;
 
     public CodificarGUI(JFrame frame, JPanel mainPanel, Botones botones) {
         setLayout(new BorderLayout());
@@ -19,37 +18,47 @@ public class CodificarGUI extends JPanel {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         add(titleLabel, BorderLayout.NORTH);
 
-        JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridBagLayout());
+        JPanel centerPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
-
-        imageLabel = new JLabel("Imagen no seleccionada", JLabel.CENTER);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         gbc.gridx = 0;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.CENTER;
+
         gbc.gridy = 0;
         gbc.gridwidth = 2;
+        imageLabel = new JLabel("Imagen no seleccionada", JLabel.CENTER);
+        imageLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        imageLabel.setVisible(false);
         centerPanel.add(imageLabel, gbc);
 
-        // Label de mensaje -> cambiar a select File
-        selectImageButton = new JButton("Seleccionar Imagen");
-        selectImageButton.addActionListener(e -> botones.handleSelectImage(imageLabel));
-        gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
+        selectImageButton = new JButton("Seleccionar Imagen");
+        selectImageButton.addActionListener(e -> botones.handleSelectImage(imageLabel));
         centerPanel.add(selectImageButton, gbc);
 
-        selectFileButton = new JButton("Seleccionar Archivo de Texto");
-        selectFileButton.addActionListener(e -> botones.handleSelectFile());
-        gbc.gridx = 0;
         gbc.gridy = 2;
+        textArea = new JTextArea(10, 30);
+        textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        textArea.setVisible(false);
+        centerPanel.add(textArea, gbc);
+
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
+        selectFileButton = new JButton("Seleccionar Archivo de Texto");
+        selectFileButton.addActionListener(e -> botones.handleSelectFile(textArea));
         centerPanel.add(selectFileButton, gbc);
+
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        encryptButton = new JButton("Encriptar Mensaje");
+        encryptButton.addActionListener(e -> botones.handleEncodeImage(imageLabel, textArea));
+        centerPanel.add(encryptButton, gbc);
 
         backButton = new JButton("Volver");
         backButton.addActionListener(e -> botones.handleBack());
-        gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         centerPanel.add(backButton, gbc);
 

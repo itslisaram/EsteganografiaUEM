@@ -16,7 +16,7 @@ public class EsteganografiaGUI extends JFrame {
     
     public EsteganografiaGUI() {
         setTitle("Esteganografía");
-        setSize(600, 500);
+        setSize(800, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
@@ -30,10 +30,10 @@ public class EsteganografiaGUI extends JFrame {
         gbc.insets = new Insets(10, 50, 10, 50);
 
         encryptButton = new JButton("Codificar imagen");
-        encryptButton.setPreferredSize(new Dimension(130, 40));
+        encryptButton.setMargin(new Insets(10, 20, 10, 20));
 
         decryptButton = new JButton("Decodificar imagen");
-        decryptButton.setPreferredSize(new Dimension(130, 40));
+        decryptButton.setMargin(new Insets(10, 20, 10, 20));
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -55,6 +55,7 @@ public class EsteganografiaGUI extends JFrame {
 
         botones = new Botones(this, mainPanel);
         encryptButton.addActionListener(e -> botones.handleCodificar());
+        decryptButton.addActionListener(e -> botones.handleDecodificar());
         exitButton.addActionListener(e -> botones.handleExit());
 
         setLocationRelativeTo(null);
