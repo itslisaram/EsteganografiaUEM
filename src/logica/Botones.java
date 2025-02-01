@@ -9,9 +9,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Botones {
     private final JFrame frame;

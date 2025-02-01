@@ -16,7 +16,7 @@ public class EsteganografiaGUI extends JFrame {
     
     public EsteganografiaGUI() {
         setTitle("Esteganografía");
-        setSize(800, 700);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
