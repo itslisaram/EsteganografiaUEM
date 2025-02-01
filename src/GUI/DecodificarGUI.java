@@ -9,7 +9,7 @@ public class DecodificarGUI extends JPanel {
     private JLabel titleLabel, imageLabel;
     private JTextArea textArea;
 
-    private JButton loadImageButton, decodeImageButton, backButton;
+    private JButton loadImageButton, decodeImageButton, saveFileButton, backButton;
 
     public DecodificarGUI(JFrame frame, JPanel mainPanel, Botones botones) {
         setLayout(new BorderLayout());
@@ -52,6 +52,12 @@ public class DecodificarGUI extends JPanel {
         centerPanel.add(decodeImageButton, gbc);
 
         gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        saveFileButton = new JButton("Guardar Mensaje");
+        saveFileButton.addActionListener(e -> botones.handleSaveImage(textArea));
+        centerPanel.add(saveFileButton, gbc);
+
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         backButton = new JButton("Volver");
         backButton.addActionListener(e -> botones.handleBack());

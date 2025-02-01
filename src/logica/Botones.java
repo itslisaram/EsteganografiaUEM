@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Botones {
@@ -142,6 +143,32 @@ public class Botones {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frame, "Error al decodificar: " + ex.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void handleSaveImage(JTextArea textArea) {
+        try {
+            String contenido = textArea.getText();
+            if (contenido == null || contenido.isEmpty()) 
+                throw new IllegalArgumentException("No hay contenido para guardar.");
+            
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar Mensaje Decodificado");
+            fileChooser.setSelectedFile(new File("mensaje_decodificado.txt"));
+
+            int userSelection = fileChooser.showSaveDialog(frame);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+
+                FicheroTexto ficheroTexto = new FicheroTexto(fileToSave);
+                ficheroTexto.escribirArchivo(contenido);
+
+                JOptionPane.showMessageDialog(frame, "Mensaje guardado en: " + fileToSave.getAbsolutePath());
+            }
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(frame, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(frame, "Error guardando el mensaje: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
