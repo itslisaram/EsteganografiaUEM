@@ -144,7 +144,7 @@ public class Botones {
         }
     }
     
-    public void handleSaveImage(JTextArea textArea) {
+    public void handleSaveImage(JLabel imageLabel, JTextArea textArea) {
         try {
             String contenido = textArea.getText();
             if (contenido == null || contenido.isEmpty()) 
@@ -162,6 +162,13 @@ public class Botones {
                 ficheroTexto.escribirArchivo(contenido);
 
                 JOptionPane.showMessageDialog(frame, "Mensaje guardado en: " + fileToSave.getAbsolutePath());
+
+                imageLabel.setIcon(null);
+                imageLabel.setText("Imagen no seleccionada");
+                imageLabel.setVisible(false);
+
+                textArea.setText("");
+                textArea.setVisible(false);
             }
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(frame, ex.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);

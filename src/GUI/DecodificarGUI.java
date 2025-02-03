@@ -54,7 +54,7 @@ public class DecodificarGUI extends JPanel {
         gbc.gridy = 4;
         gbc.gridwidth = 2;
         saveFileButton = new JButton("Guardar Mensaje");
-        saveFileButton.addActionListener(e -> botones.handleSaveImage(textArea));
+        saveFileButton.addActionListener(e -> botones.handleSaveImage(imageLabel, textArea));
         centerPanel.add(saveFileButton, gbc);
 
         gbc.gridy = 5;
